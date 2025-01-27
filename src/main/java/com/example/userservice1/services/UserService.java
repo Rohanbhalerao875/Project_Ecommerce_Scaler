@@ -61,15 +61,17 @@ public class UserService {
 
     public User validateToken(String token) {
         /*
-        A toke is valid if
-        1. token Exists in db
+        A token is valid if
+        1. Token Exist in DB
         2. Token has not expired
         3. Token has not marked as deleted
          */
-        Optional<Token> tokenResult = tokenRepo.findByValueAndDeletedAndExpiryAtGreaterThan(token,false,System.currentTimeMillis());
+        Optional<Token> tokenResult = tokenRepo
+                .findByValueAndDeletedAndExpiryAtGreaterThan(token, false, System.currentTimeMillis());
         if(tokenResult.isEmpty()) {
             return null;
         }
+
         return tokenResult.get().getUser();
     }
 }
