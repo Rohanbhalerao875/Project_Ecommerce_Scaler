@@ -33,7 +33,7 @@ public class UserService {
         User user = new User();
         user.setEmail(email);
         user.setName(name);
-        user.setHashedpassword(bCryptPasswordEncoder.encode(password));
+        user.setHashedPassword(bCryptPasswordEncoder.encode(password));
         return userRepo.save(user);
     }
 
@@ -43,7 +43,7 @@ public class UserService {
             throw new UsernameNotFoundException("User with Email " + email + " not found");
         }
         User user = optionalUser.get();
-        if(!bCryptPasswordEncoder.matches(password, user.getHashedpassword())) {
+        if(!bCryptPasswordEncoder.matches(password, user.getHashedPassword())) {
             throw new UsernameNotFoundException("Wrong Email and password");
         }
         Token token = generateToken(user);
@@ -58,6 +58,7 @@ public class UserService {
         token.setUser(user);
         return token;
     }
+
 
     public User validateToken(String token) {
         /*

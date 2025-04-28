@@ -1,5 +1,6 @@
 package com.example.userservice1.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Entity
+@JsonDeserialize
 public class User extends BaseModel {
     private String name;
 
@@ -38,13 +40,6 @@ public class User extends BaseModel {
         isEmailVerified = emailVerified;
     }
 
-    public String getHashedpassword() {
-        return hashedpassword;
-    }
-
-    public void setHashedpassword(String hashedpassword) {
-        this.hashedpassword = hashedpassword;
-    }
 
     public Optional<String> getName() {
         return name.describeConstable();
@@ -55,9 +50,19 @@ public class User extends BaseModel {
     }
 
     private String email;
-    private String hashedpassword;
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
+    }
+
+    private String hashedPassword;
     private boolean isEmailVerified;
     @ManyToMany
     private List<Role> roles;
+
 
 }
